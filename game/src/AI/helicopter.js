@@ -42,15 +42,18 @@ export function createHelicopter(scene, state) {
       cone.visible = true;
       const target = state.inCar ? state.carPos : state.playerPos;
       // In staged chase frames the heli sits at a fixed offset: ahead and
-      // to the west over the beach, ~42 m out, low enough that the rotor
-      // stays inside the frame, high enough to read as sky. Never behind
-      // a building (open beach to the west), never clipped at the top.
+      // to the west over the beach, close enough to read LARGE (rotor disc
+      // ~22% of frame width) and low enough that the rotor stays inside
+      // the frame, high enough to read as sky. Never behind a building
+      // (open beach to the west), never clipped at the top.
       if (state.shot === 'play' || state.shot === 'chase') {
         angle = 0;
-        dist = 42;
-        // Slightly west of the road ahead: upper-centre of the frame,
-        // clear of the foreground palms, rotor inside the frame.
-        mesh.position.set(target.x - 8, 17, target.z - 41);
+        dist = 38;
+        mesh.scale.setScalar(1.5);
+        // Upper-centre of the frame, clear of the mission panel (top-left)
+        // and the palm line: the body reads against open sky, the rotor
+        // stays inside the frame, and the cone leans down to the pool.
+        mesh.position.set(target.x + 2, 13, target.z - 38);
         mesh.rotation.y = Math.atan2(target.x - mesh.position.x, target.z - mesh.position.z);
         mesh.userData.rotor.rotation.y += dt * 22;
         mesh.userData.tailRotor.rotation.x += dt * 30;
@@ -64,6 +67,7 @@ export function createHelicopter(scene, state) {
       }
       angle += dt * 0.12;
       dist = 46;
+      mesh.scale.setScalar(1);
       const hx = target.x + Math.cos(angle) * dist;
       const hz = target.z + Math.sin(angle) * dist - 14;
       mesh.position.set(hx, 26, hz);

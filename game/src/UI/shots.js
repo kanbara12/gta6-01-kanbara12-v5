@@ -36,9 +36,9 @@ export function createShots(state, dialog) {
       const s = STAGES[name];
       if (name === 'start') {
         // Hero open-world: beach road, ocean left, ferris wheel right.
-        // Staged 100 m south of the wheel so it frames fully even after
+        // Staged 170 m south of the wheel so it frames fully even after
         // the car cruises north during the settle.
-        state.carPos.set(-26, 0, -10);
+        state.carPos.set(-26, 0, 60);
         state.carHeading = Math.PI;
         state.carSpeed = (s.speed * 1000) / 3600;
         state.inCar = true;
@@ -64,7 +64,9 @@ export function createShots(state, dialog) {
         ];
         state.clockLabel = 'GOLDEN';
       } else if (name === 'chase') {
-        state.carPos.set(-26, 0, -40);
+        // Staged 170 m south of the ferris wheel like the start shot, so
+        // the wheel frames fully in the distance and never hides SKY-1.
+        state.carPos.set(-26, 0, 60);
         state.carHeading = Math.PI;
         state.carSpeed = (s.speed * 1000) / 3600;
         state.inCar = true;
@@ -81,16 +83,17 @@ export function createShots(state, dialog) {
         state.popups.push({ text: 'DRIFT x3 +$150', ttl: 999 });
         state.clockLabel = 'DUSK';
       } else if (name === 'mission') {
-        // On-foot yard sweep: player facing the three yard enemies,
-        // pistol out, muzzle flash on a slow rhythm (see combat).
+        // On-foot yard sweep: player on the clear west apron of the lot,
+        // facing the three yard enemies, pistol out, muzzle flash on a
+        // slow rhythm (see combat). Sightline is clear of the containers.
         state.inCar = false;
         state.onFoot = true;
         state.cruise = false;
         state.carSpeed = 0;
         state.speedKmh = 0;
-        state.carPos.set(126, 0, 136);
-        state.playerPos.set(132, 0, 140);
-        state.playerHeading = Math.atan2(140 - 132, 158 - 140);
+        state.carPos.set(116, 0, 130);
+        state.playerPos.set(122, 0, 146);
+        state.playerHeading = Math.atan2(134 - 122, 147 - 146);
         characters.resetYard();
         state.targetsDown = 2;
         // Two enemies already bloodied by the sweep so far.
@@ -118,15 +121,16 @@ export function createShots(state, dialog) {
   };
 }
 
-// Mission-shot camera: close over-the-shoulder from the side, so the
-// pistol in the player's right hand and all three enemies read in frame.
+// Mission-shot camera: close over-the-shoulder from the player's right
+// side, so the pistol in the player's right hand and all three enemies
+// read in frame, with the yard's containers and fencing behind them.
 export function missionCamera(camera, state) {
   const px = state.playerPos.x, pz = state.playerPos.z;
   const h = state.playerHeading;
   const fx = Math.sin(h), fz = Math.cos(h);
   const rx = fz, rz = -fx;
-  camera.position.set(px - fx * 3.6 + rx * 2.8, 2.0, pz - fz * 3.6 + rz * 2.8);
-  camera.lookAt(140, 1.2, 158);
+  camera.position.set(px - fx * 4.5 + rx * 3.2, 3.0, pz - fz * 4.5 + rz * 3.2);
+  camera.lookAt(134, 1.0, 147);
 }
 
 // End-scene camera: 3/4 view with player, car, lighthouse and ocean.

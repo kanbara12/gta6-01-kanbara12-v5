@@ -6,7 +6,7 @@
 
 An open-world crime game for the make.fun **gta6-01** competition. One sunset city, one red sports coupe, eight jobs, and $22,450 on the table.
 
-Suncoast is yours tonight. Steal the HEATLINE GT, run the fixer Rae's contracts across the beachfront, lose the heat at the garage, and bring it home to the lighthouse. Police units hunt you by callsign, the SKY-1 helicopter sweeps the beach road with its spotlight, and the crew — Rae, Sable, and Marlo — talk you through every job.
+Suncoast is yours tonight. Steal the HEATLINE GT, run the fixer Rae's contracts across the beachfront, lose the heat at the garage, and bring it home to the lighthouse. Police units hunt you by callsign, the SKY-1 helicopter sweeps the beach road with its spotlight, and the crew, Rae, Sable, and Marlo, talk you through every job.
 
 ## Play
 
@@ -21,7 +21,7 @@ No build step, no network. Three.js 0.160.0 is vendored under `game/vendor/`, al
 
 Controls: W A S D drive / walk, E enter / exit car, SPACE brake, SHIFT drift, 1–4 weapons, CLICK fire (on foot), Z / X / C crew calls, R radio, M mute, H hide HUD, P / ESC pause.
 
-## The loop — 8 jobs, $22,450
+## The loop: 8 jobs, $22,450
 
 | # | Job | Payout | Cash after |
 |---|---|---|---|
@@ -55,4 +55,4 @@ A fifth scene, `?shot=end&seed=1` (the north beach road to the lighthouse after 
 
 ## Licence
 
-MIT — see `LICENSE`. Three.js is vendored under its own MIT licence; see `game/THIRD-PARTY-NOTICES.md`.
+MIT. See `LICENSE`. Three.js is vendored under its own MIT licence; see `game/THIRD-PARTY-NOTICES.md`.

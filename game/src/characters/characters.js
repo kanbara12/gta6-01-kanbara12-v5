@@ -46,8 +46,11 @@ export function createCharacters(scene, state) {
   state.playerHeading = Math.PI;
 
   // Yard enemies: red crew, health bar floating above each head.
+  // Spots sit on the clear southern apron of the lot, south of the
+  // stacked containers, so the mission camera has an open sightline
+  // to all three — no container between the camera and any enemy.
   const enemies = [];
-  const yardSpots = [[136, 152], [144, 158], [140, 164]];
+  const yardSpots = [[128, 146], [136, 152], [140, 146]];
   for (const [x, z] of yardSpots) {
     const e = makeFigure(0x8a2a2a, 0xc89a6a, 0x3a3a3a);
     e.group.position.set(x, 0, z);

@@ -157,10 +157,17 @@ export function buildPoliceCar() {
 
 export function buildHeli() {
   const heli = new THREE.Group();
-  const bodyMat = new THREE.MeshPhongMaterial({ color: 0x1e2430, shininess: 80 });
+  const bodyMat = new THREE.MeshPhongMaterial({ color: 0x39465e, shininess: 80 });
   const body = new THREE.Mesh(new THREE.BoxGeometry(2.6, 2.2, 5.2), bodyMat);
   heli.add(body);
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.4, 2.2), new THREE.MeshPhongMaterial({ color: 0x2a3a55, shininess: 200, specular: 0xffcc88 }));
+  // White cheatline + red tail band so the body reads against the sky.
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.7, 0.45, 5.25), new THREE.MeshLambertMaterial({ color: 0xe8e8e8 }));
+  stripe.position.y = 0.35;
+  heli.add(stripe);
+  const tailBand = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.8, 0.6), new THREE.MeshLambertMaterial({ color: 0xd8384a }));
+  tailBand.position.set(0, 0.4, -5.6);
+  heli.add(tailBand);
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.4, 2.2), new THREE.MeshPhongMaterial({ color: 0x4a6a8a, shininess: 200, specular: 0xffcc88 }));
   cabin.position.set(0, 0.2, 2.2);
   heli.add(cabin);
   // Tail boom + tail rotor + skids.
@@ -214,8 +221,8 @@ export function buildHeli() {
 // Bright elliptical light pool, placed on the road under the heli.
 export function buildLightPool() {
   const pool = new THREE.Mesh(
-    new THREE.CircleGeometry(4.2, 24),
-    new THREE.MeshBasicMaterial({ color: 0xffe9a8, transparent: true, opacity: 0.5, depthWrite: false }),
+    new THREE.CircleGeometry(2.4, 24),
+    new THREE.MeshBasicMaterial({ color: 0xffd76a, transparent: true, opacity: 0.5, depthWrite: false }),
   );
   pool.rotation.x = -Math.PI / 2;
   pool.scale.set(1, 1.6, 1);

@@ -41,6 +41,12 @@ export function createPolice(scene, state) {
     units,
     update(dt, t) {
       const target = state.inCar ? state.carPos : state.playerPos;
+      // The staged yard sweep is a closed fight: no police cars drive
+      // into the lot mid-frame. The HUD line still reads SEARCHING.
+      if (state.mode === 'shot' && state.shot === 'mission') {
+        for (const u of units) { u.active = false; u.mesh.visible = false; }
+        return;
+      }
       // Staged shots hold a fixed pursuit formation around the hero car
       // so the units are IN the frame with live distances + statuses.
       if (state.mode === 'shot' && state.shotFormation) {
